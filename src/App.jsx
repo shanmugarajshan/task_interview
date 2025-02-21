@@ -5,6 +5,7 @@ import Form from './taskOne/Form';
 import DashBoard from './taskOne/DashBoard';
 import { Button } from 'reactstrap';
 import VendorTable from './taskOne/VendorTable';
+import CategoryForm from './taskTwo/Category';
 
 function App() {
   const navigate = useNavigate();
@@ -27,8 +28,8 @@ function App() {
         </Button>
         <Button
           type="button"
-          onClick={() => navigate('/Dashboard')}
-          className={`btn ${activeTab === '/Dashboard' ? 'btn-info' : 'btn-secondary'}`}
+          onClick={() => navigate('/Category')}
+          className={`btn ${activeTab === '/Category' ? 'btn-info' : 'btn-secondary'}`}
         >
           Task Two
         </Button>
@@ -36,7 +37,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Form />} />
         <Route path="/VendorTable" element={<VendorTable />} />
-        <Route path="/Dashboard" element={<DashBoard />} />
+        <Route path="/Category" element={<CategoryForm />} />
       </Routes>
     </div>
   );
