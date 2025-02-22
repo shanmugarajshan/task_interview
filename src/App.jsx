@@ -29,7 +29,7 @@ function App() {
         <Button
           type="button"
           onClick={() => navigate('/Category')}
-          className={`btn ${activeTab === '/Category' ? 'btn-info' : 'btn-secondary'}`}
+          className={`btn ${activeTab === '/Category' ? 'btn-warning' : 'btn-secondary'}`}
         >
           Task Two
         </Button>
