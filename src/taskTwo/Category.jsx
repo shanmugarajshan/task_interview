@@ -1,133 +1,105 @@
 import React, { useState } from "react";
-import { Form, FormGroup, Label, Input, Container, Row, Col } from "reactstrap";
+import { Form, FormGroup, Label, Input, Container, Row, Col, Button, Table } from "reactstrap";
 
-const categoryData = {
-  Fasteners: {
-    Nuts: [
-      "Knurled Check Nuts",
-      "Acorn Nuts",
-      "T-Slot Nuts",
-      "Coupling Nuts",
-      "Flange Nuts",
-      "Hex Nuts",
-    ],
-    Screws: {
-      "Screw Jacks": [
-        "Adjustable Locating Buttons",
-        "Manual Work Supports",
-        "Through-Hole Leveling Jacks",
-        "Torque Screw Jacks",
-      ],
-    },
-  },
-};
+const getInitialState = () => ({
+  categoryOne: "",
+  categoryTwo: "",
+  categoryThree: "",
+  categoryFour: ""
+});
 
 const CategoryForm = () => {
-  const [category1, setCategory1] = useState("");
-  const [category2, setCategory2] = useState("");
-  const [category3, setCategory3] = useState("");
-  const [category4, setCategory4] = useState("");
+  const [category, setCategory] = useState(getInitialState());
+  const [tableData, setTableData] = useState([]);
+
+  const updateState = (field, value) => {
+    setCategory((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setTableData([...tableData, category]);
+    setCategory(getInitialState());
+  };
 
   return (
     <Container className="mt-4">
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Row>
-          <Col md={3}>
+          <Col md={2}>
             <FormGroup>
-              <Label for="category1">Category 1</Label>
+              <Label for="categoryOne">Category 1</Label>
               <Input
-                type="select"
-                id="category1"
-                value={category1}
-                onChange={(e) => {
-                  setCategory1(e.target.value);
-                  setCategory2("");
-                  setCategory3("");
-                  setCategory4("");
-                }}
-              >
-                <option value="">Select</option>
-                {Object.keys(categoryData).map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-              </Input>
+                type="text"
+                id="categoryOne"
+                value={category.categoryOne}
+                onChange={(e) => updateState("categoryOne", e.target.value)}
+              />
             </FormGroup>
           </Col>
-          <Col md={3}>
+          <Col md={2}>
             <FormGroup>
-              <Label for="category2">Category 2</Label>
+              <Label for="categoryTwo">Category 2</Label>
               <Input
-                type="select"
-                id="category2"
-                value={category2}
-                onChange={(e) => {
-                  setCategory2(e.target.value);
-                  setCategory3("");
-                  setCategory4("");
-                }}
-                disabled={!category1}
-              >
-                <option value="">Select</option>
-                {category1 &&
-                  Object.keys(categoryData[category1] || {}).map((cat) => (
-                    <option key={cat} value={cat}>
-                      {cat}
-                    </option>
-                  ))}
-              </Input>
+                type="text"
+                id="categoryTwo"
+                value={category.categoryTwo}
+                onChange={(e) => updateState("categoryTwo", e.target.value)}
+              />
             </FormGroup>
           </Col>
-          <Col md={3}>
+          <Col md={2}>
             <FormGroup>
-              <Label for="category3">Category 3</Label>
+              <Label for="categoryThree">Category 3</Label>
               <Input
-                type="select"
-                id="category3"
-                value={category3}
-                onChange={(e) => {
-                  setCategory3(e.target.value);
-                  setCategory4("");
-                }}
-                disabled={!category2}
-              >
-                <option value="">Select</option>
-                {category2 &&
-                  Object.keys(categoryData[category1]?.[category2] || {}).map(
-                    (cat) => (
-                      <option key={cat} value={cat}>
-                        {cat}
-                      </option>
-                    )
-                  )}
-              </Input>
+                type="text"
+                id="categoryThree"
+                value={category.categoryThree}
+                onChange={(e) => updateState("categoryThree", e.target.value)}
+              />
             </FormGroup>
           </Col>
-          <Col md={3}>
+          <Col md={2}>
             <FormGroup>
-              <Label for="category4">Category 4</Label>
+              <Label for="categoryFour">Category 4</Label>
               <Input
-                type="select"
-                id="category4"
-                value={category4}
-                onChange={(e) => setCategory4(e.target.value)}
-                disabled={!category3}
-              >
-                <option value="">Select</option>
-                {category3 &&
-                  (Array.isArray(categoryData[category1]?.[category2]?.[category3])
-                    ? categoryData[category1][category2][category3].map((cat) => (
-                        <option key={cat} value={cat}>
-                          {cat}
-                        </option>
-                      ))
-                    : [])}
-              </Input>
+                type="text"
+                id="categoryFour"
+                value={category.categoryFour}
+                onChange={(e) => updateState("categoryFour", e.target.value)}
+              />
             </FormGroup>
           </Col>
+          <Col md={2}>
+        <Button color="primary" type="submit" className="mt-4">Add Category</Button>
+        </Col>
         </Row>
       </Form>
+
+      {tableData.length > 0 && (
+        <Table striped bordered className="mt-4">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Category 1</th>
+              <th>Category 2</th>
+              <th>Category 3</th>
+              <th>Category 4</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tableData.map((item, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{item.categoryOne}</td>
+                <td>{item.categoryTwo}</td>
+                <td>{item.categoryThree}</td>
+                <td>{item.categoryFour}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      )}
     </Container>
   );
 };
