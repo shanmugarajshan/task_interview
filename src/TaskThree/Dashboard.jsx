@@ -32,7 +32,7 @@ const Dashboard = () => {
               src={banner} 
               alt="Banner" 
               className="img-fluid rounded shadow"
-              style={{width: '1184px', height: '500px'}}
+              style={{ maxWidth: "100%", height: "auto" }}
             />
           </div>
         </div>
