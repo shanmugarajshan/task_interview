@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import Form from './taskOne/Form';
-import DashBoard from './taskOne/DashBoard';
 import { Button } from 'reactstrap';
 import VendorTable from './taskOne/VendorTable';
 import CategoryForm from './taskTwo/Category';
+import Sidebar from './TaskThree/Sidebar';
+import Dashboard from './TaskThree/DashBoard';
+import Invoice from './TaskThree/Invoice';
 
 function App() {
   const navigate = useNavigate();
@@ -18,28 +20,20 @@ function App() {
 
   return (
     <div>
-      <div className='d-flex justify-content-center gap-5 mt-2'>
-        <Button
-          type="button"
-          onClick={() => navigate('/')}
-          className={`btn ${activeTab === '/' ? 'btn-warning' : 'btn-secondary'}`}
-        >
-          Task One
-        </Button>
-        <Button
-          type="button"
-          onClick={() => navigate('/Category')}
-          className={`btn ${activeTab === '/Category' ? 'btn-warning' : 'btn-secondary'}`}
-        >
-          Task Two
-        </Button>
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-md-2 px-0">
+          <Sidebar />
+        </div>
+        <div className="col-md-10">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/invoice" element={<Invoice />} />
+          </Routes>
+        </div>
       </div>
-      <Routes>
-        <Route path="/" element={<Form />} />
-        <Route path="/VendorTable" element={<VendorTable />} />
-        <Route path="/Category" element={<CategoryForm />} />
-      </Routes>
     </div>
+  </div>
   );
 }
 
