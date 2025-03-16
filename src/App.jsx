@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes } from 'react-router-dom';
 import Sidebar from './TaskThree/Sidebar';
 import Invoice from './TaskThree/Invoice';
-import Dashboard from './TaskThree/DashBoard';
+import Dashboard from "./TaskThree/Dashboard";
 
 function App() {
 
