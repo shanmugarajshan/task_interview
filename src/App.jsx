@@ -1,28 +1,44 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Route, Routes } from 'react-router-dom';
-import Sidebar from './TaskThree/Sidebar';
-import Invoice from './TaskThree/Invoice';
-import Dashboard from "./TaskThree/Dashboard";
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import VendorForm from './TaskFour/VendorForm';
+import CategorySelector from './TaskFour/Category';
+import VendorDetails from './TaskFour/vendorDetails';
 
 function App() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const togglePage = () => {
+    if (location.pathname === '/') {
+      navigate('/Category');
+    } else {
+      navigate('/');
+    }
+  };
 
   return (
-    <div>
     <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2 px-0">
-          <Sidebar />
+      <div className="row mb-3">
+        <div className="col-12 text-end">
+          <button className="btn btn-primary me-2" onClick={togglePage}>
+            Go to {location.pathname === '/' ? 'Category' : 'Vendor'}
+          </button>
+          <button className="btn btn-secondary" onClick={() => navigate('/vendor-details')}>
+            View Vendor Details
+          </button>
         </div>
-        <div className="col-md-10">
+      </div>
+      <div className="row">
+        <div>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/invoice" element={<Invoice />} />
+            <Route path="/" element={<VendorForm />} />
+            <Route path="/Category" element={<CategorySelector />} />
+            <Route path="/vendorDetails" element={<VendorDetails />} />
           </Routes>
         </div>
       </div>
     </div>
-  </div>
   );
 }
 
