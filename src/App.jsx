@@ -24,7 +24,7 @@ function App() {
           <button className="btn btn-primary me-2" onClick={togglePage}>
             Go to {location.pathname === '/' ? 'Category' : 'Vendor'}
           </button>
-          <button className="btn btn-secondary" onClick={() => navigate('/vendor-details')}>
+          <button className="btn btn-secondary" onClick={() => navigate('/vendorDetails')}>
             View Vendor Details
           </button>
         </div>
